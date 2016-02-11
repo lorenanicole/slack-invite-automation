@@ -5,10 +5,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var yaml = require("yamljs");
-
+var sessions = require('client-sessions');
 var routes = require('./routes/index');
 
 var app = express();
+
+// set sessions
+app.use( sessions({
+  cookieName: 'session',
+  secret: 'asupersecretkey',
+  duration: 24 * 60 * 60 * 1000
+}) );
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
